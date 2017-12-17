@@ -6,12 +6,18 @@
 package com.ikatoo.calc;
 
 import java.awt.event.KeyEvent;
+import java.text.DecimalFormat;
 
 /**
  *
  * @author Milton Carlos Katoo
  */
 public class TelaCalculadora extends javax.swing.JFrame {
+
+    float n1 = 0;
+    float n2 = 0;
+    float resultado = 0;
+    char operacao = 0;
 
     /**
      * Creates new form TelaCalculadora
@@ -66,24 +72,36 @@ public class TelaCalculadora extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void displayKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_displayKeyPressed
-        float n1 = 0;
-        float n2 = 0;
         char tecla = evt.getKeyChar();
-        char operacao = 0;
-        float resultado = 0;
         if (tecla == '+' || tecla == '-' || tecla == '/' || tecla == '*') {
             n1 = Float.parseFloat(display.getText());
             operacao = tecla;
         } else if (tecla == '=' || evt.getKeyCode() == KeyEvent.VK_ENTER) {
             n2 = Float.parseFloat(display.getText());
-            resultado = n1 + operacao + n2;
-            System.out.println("O resultado é: " + Float.toString(resultado));
+            switch (operacao) {
+                case '+':
+                    resultado = (float) n1 + n2;
+                    break;
+                case '-':
+                    resultado = (float) n1 - n2;
+                    break;
+                case '/':
+                    resultado = (float) n1 / n2;
+                    break;
+                case '*':
+                    resultado = (float) n1 * n2;
+                    break;
+                default:
+                    break;
+            }
+            DecimalFormat df = new DecimalFormat("##.##");
+            display.setText(df.format(resultado));
         }
     }//GEN-LAST:event_displayKeyPressed
 
     private void displayKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_displayKeyReleased
         char tecla = evt.getKeyChar();
-        if (tecla == '+' || tecla == '-' || tecla == '/' || tecla == '*' || tecla == '=' || evt.getKeyCode() == KeyEvent.VK_ENTER) {
+        if (tecla == '+' || tecla == '-' || tecla == '/' || tecla == '*') {
             display.setText("");
         }
     }//GEN-LAST:event_displayKeyReleased
